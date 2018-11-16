@@ -1,4 +1,4 @@
-package requirements
+package pip
 
 import (
 	"log"
@@ -18,7 +18,7 @@ func TestUnmarshal(t *testing.T) {
 			toParse: "testPackage",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName: "testPackage",
 				},
 			},
 		},
@@ -27,7 +27,7 @@ func TestUnmarshal(t *testing.T) {
 			toParse: " testPackage ",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName: "testPackage",
 				},
 			},
 		},
@@ -36,7 +36,7 @@ func TestUnmarshal(t *testing.T) {
 			toParse: " testPackage\n",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName: "testPackage",
 				},
 			},
 		},
@@ -45,7 +45,7 @@ func TestUnmarshal(t *testing.T) {
 			toParse: "\ntestPackage\n",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName: "testPackage",
 				},
 			},
 		},
@@ -54,10 +54,10 @@ func TestUnmarshal(t *testing.T) {
 			toParse: "\ntestPackage\nanotherPackage\n",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName: "testPackage",
 				},
 				{
-					PackageName: "anotherPackage",
+					ProjectName: "anotherPackage",
 				},
 			},
 		},
@@ -66,9 +66,9 @@ func TestUnmarshal(t *testing.T) {
 			toParse: "testPackage==1.2.3",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName:     "testPackage",
 					VersionOperator: "==",
-					PackageVersion: "1.2.3",
+					Version:         "1.2.3",
 				},
 			},
 		},
@@ -77,9 +77,9 @@ func TestUnmarshal(t *testing.T) {
 			toParse: " testPackage == 1.2.3 ",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName:     "testPackage",
 					VersionOperator: "==",
-					PackageVersion: "1.2.3",
+					Version:         "1.2.3",
 				},
 			},
 		},
@@ -88,9 +88,9 @@ func TestUnmarshal(t *testing.T) {
 			toParse: " testPackage == 1.2.3\n",
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage",
+					ProjectName:     "testPackage",
 					VersionOperator: "==",
-					PackageVersion: "1.2.3",
+					Version:         "1.2.3",
 				},
 			},
 		},
@@ -104,22 +104,22 @@ testPackage4>=7.8.9a
 `,
 			expectedResult: []Requirement{
 				{
-					PackageName: "testPackage1",
+					ProjectName: "testPackage1",
 				},
 				{
-					PackageName: "testPackage2",
+					ProjectName:     "testPackage2",
 					VersionOperator: "==",
-					PackageVersion: "1.2.3",
+					Version:         "1.2.3",
 				},
 				{
-					PackageName: "testPackage3",
+					ProjectName:     "testPackage3",
 					VersionOperator: "~=",
-					PackageVersion: "4.5",
+					Version:         "4.5",
 				},
 				{
-					PackageName: "testPackage4",
+					ProjectName:     "testPackage4",
 					VersionOperator: ">=",
-					PackageVersion: "7.8.9a",
+					Version:         "7.8.9a",
 				},
 			},
 		},

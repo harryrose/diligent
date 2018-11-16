@@ -1,4 +1,4 @@
-package requirements
+package pip
 
 import (
 	"fmt"
@@ -75,7 +75,7 @@ func parseLine(tokens <-chan TokenResult) (Requirement, bool, error) {
 			return fmt.Errorf("unexpected token: '%s'. expected a package name", tok.value)
 		}
 
-		out.PackageName = tok.value
+		out.ProjectName = tok.value
 		state = lsExpectOp
 		return nil
 	}
@@ -100,7 +100,7 @@ func parseLine(tokens <-chan TokenResult) (Requirement, bool, error) {
 			return fmt.Errorf("unexpected token: '%s'. expected a version string", tok.value)
 		}
 
-		out.PackageVersion = tok.value
+		out.Version = tok.value
 		state = lsEndLine
 		return nil
 	}

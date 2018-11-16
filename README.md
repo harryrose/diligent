@@ -17,6 +17,8 @@ The following languages and dependency managers are supported:
    - dep (Gopkg.lock)
  - Node / Javascript
    - NPM (package.json)
+ - Python
+   - pip (requirements.txt)
 
 ## Usage
 The following command demonstrates how to use docker to run diligent:

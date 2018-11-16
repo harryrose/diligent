@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/senseyeio/diligent/python/pip"
+	"github.com/senseyeio/diligent/python/pypi"
 
 	"path/filepath"
 
@@ -17,12 +19,18 @@ var (
 	gh        = github.New("https://api.github.com")
 	goLG      = _go.NewLicenseGetter(gh)
 	npmAPIURL = "https://registry.npmjs.org"
+	pypiAPIURL = "https://pypi.python.org"
 )
 
 var depers = []diligent.Deper{
 	npm.New(npmAPIURL),
 	govendor.New(goLG),
 	dep.New(goLG),
+	&pip.Deper{
+		Client: &pypi.Client{
+			BaseURL: pypiAPIURL,
+		},
+	},
 }
 
 func getDeper(path string) (diligent.Deper, error) {

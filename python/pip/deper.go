@@ -11,7 +11,7 @@ type ProjectMetadataFetcher interface {
 }
 
 type Deper struct {
-	client ProjectMetadataFetcher
+	Client ProjectMetadataFetcher
 }
 
 func (*Deper) Name() string {
@@ -33,19 +33,22 @@ func (d *Deper) Dependencies(file []byte) ([]diligent.Dep, []diligent.Warning, e
 	var warns []diligent.Warning
 
 	for _, req := range reqs {
-		meta, err := d.client.ProjectMetadata(req.ProjectName, req.Version)
+		meta, err := d.Client.ProjectMetadata(req.ProjectName, req.Version)
 		if err != nil {
 			warns = append(warns, &warning{project: req.ProjectName, reason: err.Error()})
+			continue
 		}
 
 		if meta.Info.License == "" {
 			warns = append(warns, &warning{project: req.ProjectName, reason: "empty license field"})
+			continue
 		}
 
 		lic, err := diligent.GetLicenseFromIdentifier(meta.Info.License)
 
 		if err != nil {
 			warns = append(warns, &warning{project: req.ProjectName, reason: err.Error()})
+			continue
 		}
 
 		deps = append(deps, diligent.Dep{
